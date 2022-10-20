@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
-    private float _fireRate = 0.5f;
+    private float _fireRate = 0.15f;
     private float _canFire = -1f;
     [SerializeField]
     private int _lives = 3;
