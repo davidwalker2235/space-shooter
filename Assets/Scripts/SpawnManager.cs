@@ -7,12 +7,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
-    private GameObject _powerupPrefab;
+    private GameObject[] _powerupPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject _powerupContainer;
     [SerializeField]
+
     private bool isPlayerAlive = true;
     void Start()
     {
@@ -35,8 +36,9 @@ public class SpawnManager : MonoBehaviour
     {
         while (isPlayerAlive)
         {
+            int prefabIndex = Random.Range(0, _powerupPrefab.Length);
             Vector3 posToSpawnPowerup = new Vector3(Random.Range(-9.4f, 9.4f), 6.4f, 0);
-            GameObject newPowerup = Instantiate<GameObject>(_powerupPrefab, posToSpawnPowerup, Quaternion.identity);
+            GameObject newPowerup = Instantiate<GameObject>(_powerupPrefab[prefabIndex], posToSpawnPowerup, Quaternion.identity);
             newPowerup.transform.parent = _powerupContainer.transform;
             yield return new WaitForSeconds(Random.Range(32f, 7f));
         }

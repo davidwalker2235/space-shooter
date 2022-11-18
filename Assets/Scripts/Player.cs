@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
     [SerializeField]
     private bool _isTripleShotActive;
+    [SerializeField]
+    private bool _isSpeedPowerupActive;
+    [SerializeField]
+    private bool _isShieldPowerupActive;
 
     void Start()
     {
@@ -40,8 +44,17 @@ public class Player : MonoBehaviour
         float vertical = Input.GetAxis("Vertical"); 
 
         float veti = Mathf.Clamp(vertical, -6, 6);
+        float newSpeed = _speed;
 
-        transform.Translate(new Vector3(horizontal, vertical, 0) * _speed * Time.deltaTime);
+        if (_isSpeedPowerupActive)
+        {
+            newSpeed = _speed * 2;
+        } else
+        {
+            newSpeed = _speed;
+        }
+
+        transform.Translate(new Vector3(horizontal, vertical, 0) * newSpeed * Time.deltaTime);
 
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -9.2f, 9.2f), Mathf.Clamp(transform.position.y, -4f, 6f), 0);
     }
@@ -75,9 +88,36 @@ public class Player : MonoBehaviour
         StartCoroutine(TripleShotPowerDownRoutine());
 
     }
+
+    public void SpeedPowerupActive()
+    {
+        _isSpeedPowerupActive = true;
+        StartCoroutine(SpeedupPowerDownRoutine());
+
+    }
+
+    public void ShieldPowerupActive()
+    {
+        _isShieldPowerupActive = true;
+        StartCoroutine(ShieldPowerDownRoutine());
+
+    }
+
     IEnumerator TripleShotPowerDownRoutine()
     {
         yield return new WaitForSeconds(5.0f);
         _isTripleShotActive = false;
+    }
+    
+    IEnumerator SpeedupPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isSpeedPowerupActive = false;
+    }
+
+    IEnumerator ShieldPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isShieldPowerupActive = false;
     }
 }
