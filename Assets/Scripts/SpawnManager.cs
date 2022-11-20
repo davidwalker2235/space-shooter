@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnPowerupRoutine());
     }
 
-    IEnumerator SpawnEnemyRoutine ()
+    private IEnumerator SpawnEnemyRoutine ()
     {
         while (isPlayerAlive)
         {
@@ -32,7 +32,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnPowerupRoutine ()
+    private IEnumerator SpawnPowerupRoutine ()
     {
         while (isPlayerAlive)
         {

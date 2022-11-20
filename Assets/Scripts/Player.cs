@@ -21,11 +21,14 @@ public class Player : MonoBehaviour
     private bool _isSpeedPowerupActive;
     [SerializeField]
     private bool _isShieldPowerupActive;
+    [SerializeField]
+    private GameObject _shield;
 
     void Start()
     {
         transform.position = Vector3.zero;
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _shield.SetActive(false);
     }
 
     void Update()
@@ -35,7 +38,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
-        }
+        };
     }
 
     void CalculateMovement()
@@ -74,7 +77,15 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_isShieldPowerupActive)
+        {
+            _shield.SetActive(false);
+            _isShieldPowerupActive = false;
+            return;
+        }
+
         _lives--;
+
         if (_lives < 1)
         {
             _spawnManager.OnPlayerDeath();
@@ -98,9 +109,11 @@ public class Player : MonoBehaviour
 
     public void ShieldPowerupActive()
     {
-        _isShieldPowerupActive = true;
-        StartCoroutine(ShieldPowerDownRoutine());
-
+        if (!_isShieldPowerupActive)
+        {
+            _isShieldPowerupActive = true;
+            _shield.SetActive(true);
+        }
     }
 
     IEnumerator TripleShotPowerDownRoutine()
@@ -113,11 +126,5 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _isSpeedPowerupActive = false;
-    }
-
-    IEnumerator ShieldPowerDownRoutine()
-    {
-        yield return new WaitForSeconds(5.0f);
-        _isShieldPowerupActive = false;
     }
 }
