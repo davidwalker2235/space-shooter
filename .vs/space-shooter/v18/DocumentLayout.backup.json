@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\projects\\space-shooter\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{27D4D0CC-4EA5-88C2-B477-AC3FB1DE40AC}|Assembly-CSharp.csproj|c:\\projects\\space-shooter\\assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27D4D0CC-4EA5-88C2-B477-AC3FB1DE40AC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27D4D0CC-4EA5-88C2-B477-AC3FB1DE40AC}|Assembly-CSharp.csproj|c:\\projects\\space-shooter\\assets\\scripts\\laser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27D4D0CC-4EA5-88C2-B477-AC3FB1DE40AC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\laser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Laser.cs",
+              "DocumentMoniker": "C:\\projects\\space-shooter\\Assets\\Scripts\\Laser.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Laser.cs",
+              "ToolTip": "C:\\projects\\space-shooter\\Assets\\Scripts\\Laser.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Laser.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwAoAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T16:25:40.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\projects\\space-shooter\\Assets\\Scripts\\Player.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player.cs",
+              "ToolTip": "C:\\projects\\space-shooter\\Assets\\Scripts\\Player.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwC4AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T16:25:38.841Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

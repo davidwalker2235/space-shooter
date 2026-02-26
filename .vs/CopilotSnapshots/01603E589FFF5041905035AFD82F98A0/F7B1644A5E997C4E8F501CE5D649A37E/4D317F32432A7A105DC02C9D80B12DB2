@@ -1,0 +1,45 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    private float _speed = 5;
+    // Start is called before the first frame update
+    void Start()
+    {
+        transform.position = new Vector3(0, 0, 0);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+        transform.Translate(direction * _speed * Time.deltaTime);
+
+        float leftBoundary = -9;
+        float rightBoundary = 9;
+        float topBoundary = 5;
+        float bottomBoundary = -5;
+
+        if (transform.position.x <= leftBoundary)
+        {
+            transform.position = new Vector3(leftBoundary, transform.position.y, 0);
+        }
+        else if (transform.position.x >= rightBoundary)
+        {
+            transform.position = new Vector3(rightBoundary, transform.position.y, 0);
+        }
+        else if (transform.position.y >= topBoundary)
+        {
+            transform.position = new Vector3(transform.position.x, topBoundary, 0);
+        }
+        else if (transform.position.y <= bottomBoundary)
+        {
+            transform.position = new Vector3(transform.position.x, bottomBoundary, 0);
+        }
+    }
+}
