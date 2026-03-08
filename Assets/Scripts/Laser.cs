@@ -10,12 +10,6 @@ public class Laser : MonoBehaviour
     [SerializeField]
     private float _topBound = 6.0f;
 
-    void Start()
-    {
-    
-    }
-
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
