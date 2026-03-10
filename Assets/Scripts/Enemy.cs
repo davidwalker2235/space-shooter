@@ -10,11 +10,6 @@ public class Enemy : MonoBehaviour
     private float _topBound = 6.0f;
     private float _bottomBound = -6.0f;
 
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
@@ -30,8 +25,15 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            Player player = other.GetComponent<Player>();
+
+            if (player != null)
+            {
+                player.Damage();
+            }
+
             Destroy(this.gameObject);
-            other.GetComponent<Player>().Damage();
+
         }
         if(other.tag == "Laser")
         {
