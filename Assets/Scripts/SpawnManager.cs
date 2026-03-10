@@ -4,20 +4,34 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject enemy;
+    [SerializeField]
+    private float _spawnInterval = 5.0f;
+    private IEnumerator coroutine;
+    [SerializeField]
+    GameObject _enemyContainer;
+    private bool _stopSpawning = false;
+
+
     void Start()
     {
-        
+        coroutine = SpawnRoutine();
+        StartCoroutine(coroutine);
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator SpawnRoutine()
     {
-        
+        while (!_stopSpawning)
+        {
+            Vector3 posToSpawn = new Vector3(Random.Range(-9, 9), 6, 0);
+            GameObject newEnemy = Instantiate(enemy, posToSpawn, Quaternion.identity);
+            newEnemy.transform.SetParent(_enemyContainer.transform);
+            yield return new WaitForSeconds(_spawnInterval);
+        }
     }
 
-    IEnumetator SpawnRoutine()
+    public void OnPlayerDeath()
     {
-
+        _stopSpawning = true;
     }
 }
