@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
+    private GameObject _tripleShotPrefab;
+    [SerializeField]
     private float leftBoundary = -9;
     [SerializeField]
     private float rightBoundary = 9;
@@ -18,9 +20,14 @@ public class Player : MonoBehaviour
     private float bottomBoundary = -5;
     [SerializeField]
     private float _fireRate = 0.5f;
-    private float _canFire = -1f;
+    [SerializeField]
+    private int _speedMultiplier = 2;
     [SerializeField]
     private int _lives = 3;
+
+    private float _canFire = -1f;
+    private bool _isTripleShotActive = false;
+    private bool _isSpeedupActive = false;
     private SpawnManager _spawnManager;
 
     public bool isAlive = true;
@@ -45,11 +52,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    IEnumerator TripleShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isTripleShotActive = false;
+    }
+
+    IEnumerator SpeedPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isSpeedupActive = false;
+        _speed /= _speedMultiplier;
+    }
+
     void calculateMovement() {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+
         transform.Translate(direction * _speed * Time.deltaTime);
 
         Vector3 position = transform.position;
@@ -60,9 +81,16 @@ public class Player : MonoBehaviour
     }
 
     void FireLaser() {
-
-        _canFire = Time.time + _fireRate;
-        GameObject laser = Instantiate(_laserPrefab, new Vector3(transform.position.x, transform.position.y + 0.8f, 0), Quaternion.identity);
+        if (!_isTripleShotActive)
+        {
+            _canFire = Time.time + _fireRate;
+            GameObject laser = Instantiate(_laserPrefab, new Vector3(transform.position.x, transform.position.y + 0.8f, 0), Quaternion.identity);
+        }
+        else
+        {
+            _canFire = Time.time + _fireRate;
+            GameObject laser = Instantiate(_tripleShotPrefab, new Vector3(transform.position.x, transform.position.y + 0.8f, 0), Quaternion.identity);
+        }
     }
 
     public void Damage() {
@@ -71,5 +99,17 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
             _spawnManager.OnPlayerDeath();
         }
+    }
+
+    public void TripleShotPowerupOn() {
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    public void SpeedUpPowerupOn()
+    {
+        _isSpeedupActive = true;
+        _speed *= _speedMultiplier;
+        StartCoroutine(SpeedPowerDownRoutine());
     }
 }

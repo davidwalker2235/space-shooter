@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Powerup : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 4;
     [SerializeField]
     private float _topBound = 6.0f;
+    [SerializeField]
     private float _bottomBound = -6.0f;
+    [SerializeField]
+    private float _powerupID;
+
 
     void Update()
     {
@@ -16,8 +20,7 @@ public class Enemy : MonoBehaviour
 
         if (transform.position.y < _bottomBound)
         {
-            float randomX = Random.Range(-9, 9);
-            transform.position = new Vector3(randomX, _topBound, 0);
+            Destroy(this.gameObject);
         }
     }
 
@@ -26,19 +29,20 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Player")
         {
             Player player = other.GetComponent<Player>();
-
-            if (player != null)
+            switch (_powerupID)
             {
-                player.Damage();
+                case 0:
+                    player.TripleShotPowerupOn();
+                    break;
+                case 1:
+                    player.SpeedUpPowerupOn();
+                    break;
+                default:
+                    Debug.Log("Default Value");
+                    break;
             }
 
             Destroy(this.gameObject);
-
-        }
-        if(other.tag == "Laser")
-        {
-            Destroy(this.gameObject);
-            Destroy(other.gameObject);
         }
     }
 }
