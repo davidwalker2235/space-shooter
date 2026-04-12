@@ -9,6 +9,16 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _topBound = 6.0f;
     private float _bottomBound = -6.0f;
+    private Player _player;
+
+    void Start()
+    {
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is null");
+        }
+    }
 
     void Update()
     {
@@ -38,6 +48,10 @@ public class Enemy : MonoBehaviour
         if(other.tag == "Laser")
         {
             Destroy(this.gameObject);
+            if (_player != null)
+            {
+                _player.AddScore(10);
+            }
             Destroy(other.gameObject);
         }
     }

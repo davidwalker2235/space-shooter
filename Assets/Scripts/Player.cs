@@ -24,22 +24,34 @@ public class Player : MonoBehaviour
     private int _speedMultiplier = 2;
     [SerializeField]
     private int _lives = 3;
+    [SerializeField]
+    private GameObject _shieldsVisualizer;
+    [SerializeField]
+    private int _score = 0;
 
     private float _canFire = -1f;
     private bool _isTripleShotActive = false;
     private bool _isSpeedupActive = false;
     private SpawnManager _spawnManager;
-
+    private bool _isShieldsActive = false;
     public bool isAlive = true;
+    private UIManager _uiManager;
+
+
 
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         if (_spawnManager == null )
         {
             Debug.LogError("Spawn Manager is null");
+        }
+        if (_uiManager == null)
+            {
+                Debug.LogError("UI Manager is null");
         }
     }
 
@@ -94,10 +106,20 @@ public class Player : MonoBehaviour
     }
 
     public void Damage() {
+        if (_isShieldsActive)
+        {
+            _isShieldsActive = false;
+            _shieldsVisualizer.SetActive(false);
+            return;
+        }
+
         _lives--;
+        _uiManager.UpdateLives(_lives);
+
         if (_lives < 1) {
             Destroy(this.gameObject);
             _spawnManager.OnPlayerDeath();
+            _uiManager.GameOverSequence();
         }
     }
 
@@ -111,5 +133,17 @@ public class Player : MonoBehaviour
         _isSpeedupActive = true;
         _speed *= _speedMultiplier;
         StartCoroutine(SpeedPowerDownRoutine());
+    }
+
+    public void ShieldsActive()
+    {
+        _isShieldsActive = true;
+        _shieldsVisualizer.SetActive(true);
+    }
+
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScore(_score);
     }
 }
